@@ -17,8 +17,8 @@ const Header = () => {
             icon: <HomeFilled />,
         },
         {
-            label: <Link to={'/user'}>User</Link>,
-            key: 'user',
+            label: <Link to={'/users'}>Users</Link>,
+            key: 'users',
             icon: <HeartFilled />,
         },
         {
