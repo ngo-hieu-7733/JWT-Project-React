@@ -10,8 +10,9 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
     function (config) {
+        console.log('>>> CHECK set token');
         config.headers.Authorization = `Bearer ${localStorage.getItem(
-            'accessToken',
+            'access_token',
         )}`;
         return config;
     },
@@ -31,6 +32,10 @@ instance.interceptors.response.use(
     function (error) {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
+        console.log('>>> check err: ', error);
+
+        if (error?.response?.data) return error?.response?.data;
+
         return Promise.reject(error);
     },
 );

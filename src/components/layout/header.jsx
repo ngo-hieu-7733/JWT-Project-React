@@ -6,10 +6,11 @@ import {
     LogoutOutlined,
     RocketFilled,
 } from '@ant-design/icons';
-import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Menu, notification } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const nav = useNavigate()
     const items = [
         {
             label: <Link to={'/'}>Home</Link>,
@@ -25,18 +26,23 @@ const Header = () => {
             label: 'Welcome danchoi',
             key: 'SubMenu',
             icon: <RocketFilled />,
-            children: [
-                {
-                    label: <Link to={'/login'}>Log In</Link>,
-                    key: 'login',
-                    icon: <LoginOutlined />,
-                },
-                {
-                    label: 'Log Out',
-                    key: 'logout',
-                    icon: <LogoutOutlined />,
-                },
-            ],
+            children: localStorage.getItem('access_token') ? [{
+                label: <span onClick={() => {
+                    localStorage.clear('access_token')
+                    notification.success({
+                        message: "Log out successfully",
+                        description: "Dang xuat thanh cong!"
+                    })
+                    nav('/')
+                }}>Log Out</span>,
+                key: 'logout',
+                icon: <LogoutOutlined />,
+            }] :
+            [{
+                label: <Link to={'/login'}>Log In</Link>,
+                key: 'login',
+                icon: <LoginOutlined />,
+            }]
         },
     ];
 

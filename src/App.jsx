@@ -5,13 +5,17 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 
 function App() {
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.get(`/v1/api`);
-            console.log('>>> Check res: ', res);
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const res = await axios.get(`/v1/api/`);
+    //             console.log('>>> Check res: ', res);
+    //         } catch (error) {
+    //             console.log('>>> ERR Home Page: ', error)            
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
 
     return (
         <>

@@ -1,16 +1,30 @@
-import { Table } from "antd";
+import { notification, Table } from "antd";
 import { useEffect, useState } from "react";
 import { getUsers } from "../util/api";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
     const [data, setData] = useState([])
-
+    const nav = useNavigate()
     useEffect(() => {
         const fetchUsers = async () => {
-            const users = await getUsers()
-            if (users) {
-                setData(users)
-            } 
+            try {
+                const users = await getUsers()
+
+                if (!users?.message) {
+                    setData(users)
+                } else {
+                    notification.error({
+                        message: "Unauthorized",
+                        description: users.message
+                    })
+                    setTimeout(() => {
+                        nav('/login')  
+                    }, 500);                  
+                }
+            } catch (error) {
+                console.log('>>> check users error', error)
+            }
         }
         fetchUsers()
     }, [])
